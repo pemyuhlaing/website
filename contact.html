@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    button{
+    margin:30px;
+    width: 70px;
+    padding:10px;
+    background-color: lime;
+    border:1px solid #ccc;
+    border-radius: 20px;
+}
+button:hover{
+    background:blue;
+}
+</style>
+<body>
+
+    <header>
+        <h1>Contact Me</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Get in Touch</h2>
+        <form action="contact.php" method="POST">
+            <div>Name:</div>
+            <input type="text" style= "margin: 30px; border: 1px solid #cccc;border-radius: 20px; background-color: aqua;" name="name" required>
+            <div>Email:</div>
+            <input type="email"style= "margin: 30px; border: 1px solid #cccc;border-radius: 20px; background-color: aqua;" name="email" required>
+            <div>Message:</div>
+            <textarea name="message"style= "margin: 30px; background:black; color:white; width:200px;padding:50px;" required></textarea>
+            <div>
+            <button type="submit">Send</button>
+            </div>
+        </form>
+    </section>
+
+</body>
+</html>

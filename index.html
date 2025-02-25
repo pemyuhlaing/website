@@ -3,30 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px gray;
+            text-align: left;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .submit-btn {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background: darkblue;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+<div class="container">
+    <h2>Job Application Form</h2>
+    <form id="applicationForm" action="submit.php" method="POST" enctype="multipart/form-data">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname">
+        <p class="error" id="nameError"></p>
 
-    <section>
-        <h2>Hello! I'm Stephan</h2>
-        <p>I'm a Student. Welcome to my website.</p>
-        <img src="./uploads/images/my.png" alt="My Photo" width="100">
-    </section>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <p class="error" id="emailError"></p>
 
-    <footer>
-        <p>&copy; 2025 Stephan. All rights reserved.</p>
-    </footer>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone">
+        <p class="error" id="phoneError"></p>
+
+        <label for="position">Position Applied For:</label>
+        <select id="position" name="position">
+            <option value="">-- Select Position --</option>
+            <option value="Software Developer">Software Developer</option>
+            <option value="Graphic Designer">Graphic Designer</option>
+            <option value="Marketing Specialist">Marketing Specialist</option>
+            <option value="Customer Support">Customer Support</option>
+        </select>
+        <p class="error" id="positionError"></p>
+
+        <label for="resume">Upload Resume (PDF only):</label>
+        <input type="file" id="resume" name="resume" accept=".pdf">
+        <p class="error" id="resumeError"></p>
+
+        <label for="coverletter">Cover Letter:</label>
+        <textarea id="coverletter" name="coverletter" rows="5"></textarea>
+        <p class="error" id="coverLetterError"></p>
+
+        <label>Availability:</label><br>
+        <input type="radio" id="fulltime" name="availability" value="Full-time">
+        <label for="fulltime">Full-time</label>
+        <input type="radio" id="parttime" name="availability" value="Part-time">
+        <label for="parttime">Part-time</label>
+        <p class="error" id="availabilityError"></p>
+
+        <button type="submit" class="submit-btn">Submit Application</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("applicationForm").addEventListener("submit", function(event) {
+        let isValid = true;
+
+        // Full Name Validation
+        let fullName = document.getElementById("fullname").value;
+        if (fullName.trim() === "") {
+            document.getElementById("nameError").textContent = "Full name is required.";
+            isValid = false;
+        } else {
+            document.getElementById("nameError").textContent = "";
+        }
+
+        // Email Validation
+        let email = document.getElementById("email").value;
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            document.getElementById("emailError").textContent = "Enter a valid email.";
+            isValid = false;
+        } else {
+            document.getElementById("emailError").textContent = "";
+        }
+
+        // Phone Validation
+        let phone = document.getElementById("phone").value;
+        let phonePattern = /^[0-9]{10}$/;
+        if (!phonePattern.test(phone)) {
+            document.getElementById("phoneError").textContent = "Enter a valid 10-digit phone number.";
+            isValid = false;
+        } else {
+            document.getElementById("phoneError").textContent = "";
+        }
+
+        // Resume Validation
+        let resume = document.getElementById("resume").files[0];
+        if (!resume) {
+            document.getElementById("resumeError").textContent = "Please upload a resume.";
+            isValid = false;
+        } else if (resume.type !== "application/pdf") {
+            document.getElementById("resumeError").textContent = "Only PDF files are allowed.";
+            isValid = false;
+        } else {
+            document.getElementById("resumeError").textContent = "";
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
 
 </body>
 </html>
